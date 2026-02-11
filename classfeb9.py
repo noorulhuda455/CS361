@@ -1,69 +1,43 @@
 import ply.lex as lex
-
-# Token names
+# List of token names
 tokens = (
-    'VOWEL',
-    'CONSONANT',
-    'PUNCT',
+    'NUMBER',
+    'WORD',
 )
 
-# Counters
-vowel_count = 0
-consonant_count = 0
-punct_count = 0
-
-
-# Vowel rule
-def t_VOWEL(t):
-    r'[AEIOUaeiou]'
-    global vowel_count
-    vowel_count += 1
+# Regular expression rules for simple tokens
+def t_NUMBER(t):
+    r'[0-9]+'
+    t.value = int(t.value)
+    #print(t)
     return t
 
-
-# Consonant rule
-def t_CONSONANT(t):
-    r'[B-DF-HJ-NP-TV-Zb-df-hj-np-tv-z]'
-    global consonant_count
-    consonant_count += 1
+def t_WORD(t):
+    r'[a-zA-Z]+'
     return t
 
-
-# Required punctuation only:
-# ( ) , ; : . [ ]
-def t_PUNCT(t):
-    r'[\(\),;:\.\[\]]'
-    global punct_count
-    punct_count += 1
-    return t
-
-
-# Ignore spaces and tabs and newlines
+# A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t\n'
+# Error handling rule
 
-
-# Error handling rule (ignore everything else)
 def t_error(t):
     t.lexer.skip(1)
 
+    # This skips characters that don't match words or
+    #numbers (like punctuation)
 
-# Build lexer
 lexer = lex.lex()
-
-# Example input
-text_input = "Hello (Noor), welcome to CS;627: AI [Spring]."
+text_input = "In 2026, I have 5 apples,2 kiwi and some bread."
 lexer.input(text_input)
-
-# Tokenize
-while True:
+while (True):
     tok = lexer.token()
+    #print(tok)
     if not tok:
-        break
-
-# Final counts
-print("Vowels:", vowel_count)
-print("Consonants:", consonant_count)
-print("Punctuation:", punct_count)
+        break # No more input
+    if tok.type == 'WORD':
+        print ("Word ",tok.value)
+    elif tok.type == 'NUMBER':
+        print ("Number: ",tok.value)
 
 
 
