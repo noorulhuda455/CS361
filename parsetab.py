@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'DIVIDE MINUS NUMBER PLUS TIMESexpression : NUMBERexpression : expression PLUS expression\n| expression MINUS expression\n| expression TIMES expression\n| expression DIVIDE expression'
+_lr_signature = 'MINUS NUMBER PLUSexpression : NUMBERexpression : expression PLUS expression\n| expression MINUS expression'
     
-_lr_action_items = {'NUMBER':([0,3,4,5,6,],[2,2,2,2,2,]),'$end':([1,2,7,8,9,10,],[0,-1,-2,-3,-4,-5,]),'PLUS':([1,2,7,8,9,10,],[3,-1,3,3,3,3,]),'MINUS':([1,2,7,8,9,10,],[4,-1,4,4,4,4,]),'TIMES':([1,2,7,8,9,10,],[5,-1,5,5,5,5,]),'DIVIDE':([1,2,7,8,9,10,],[6,-1,6,6,6,6,]),}
+_lr_action_items = {'NUMBER':([0,3,4,],[2,2,2,]),'$end':([1,2,5,6,],[0,-1,-2,-3,]),'PLUS':([1,2,5,6,],[3,-1,3,3,]),'MINUS':([1,2,5,6,],[4,-1,4,4,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,3,4,5,6,],[1,7,8,9,10,]),}
+_lr_goto_items = {'expression':([0,3,4,],[1,5,6,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,9 +27,7 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> NUMBER','expression',1,'p_expression_number','classfeb11.py',63),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','classfeb11.py',67),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','classfeb11.py',68),
-  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','classfeb11.py',69),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','classfeb11.py',70),
+  ('expression -> NUMBER','expression',1,'p_expression_number','calc2-step1.py',59),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','calc2-step1.py',64),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','calc2-step1.py',65),
 ]
