@@ -1,15 +1,35 @@
 import ply.lex as lex
 
+#this is 4 function calculator with parentheses
 # 1. Define the List of Tokens
 
 tokens = (
     'NUMBER',
     'PLUS',
     'MINUS',
+    'MULTIPLY',
+    'DIVIDE',
+    'RIGHTPAREN',
+    'LEFTPAREN'
     
 )
 
-# 2. Define Token Patterns, these are the lex rules 
+# 2. Define Token Patterns
+def t_LEFTPAREN(t):
+    r'\('
+    return(t)
+
+def t_RIGHTPAREN(t):
+    r'\)'
+    return(t)
+
+def t_MULTIPLY(t):
+    r'\*'
+    return(t)
+
+def t_DIVIDE(t):
+    r'/'
+    return(t)
 def t_NUMBER(t):
     r'[0-9]+'
     t.value = int(t.value)
@@ -59,19 +79,31 @@ def p_expression_number(p):
     'expression : NUMBER'
     p[0] = p[1]
     
+
     
-def p_expression_binop(p): #this is the yacc grammer
+def p_expression_binop(p):
     '''expression : expression PLUS expression
-                  | expression MINUS expression'''
-                  
-    
+                  | expression MINUS expression
+                  | expression MULTIPLY expression
+                  | expression DIVIDE expression'''
+   
     if p[2] == '+': p[0] = p[1] + p[3]
     elif p[2] == '-': p[0] = p[1] - p[3]
+    elif p[2] == '*': p[0] = p[1] * p[3]
+    elif p[2] == '/': p[0] = p[1] / p[3]
+
+def p_expression_paren(p):
+    'expression : LEFTPAREN expression RIGHTPAREN'
+    p[0] = p[2]
     
 precedence = (
-    ('left', 'PLUS', 'MINUS'), #this fixes the 10-5-2 giving 7 problem, now gives 3
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'MULTIPLY','DIVIDE')
 )
-    
+def p_error(p):
+    if p:
+        print(f"Syntax error at token '{p.value}' (line {p.lineno})")  
+
 # 3. Build the Parser
 parser = yacc.yacc()
 

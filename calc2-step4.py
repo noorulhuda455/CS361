@@ -6,10 +6,40 @@ tokens = (
     'NUMBER',
     'PLUS',
     'MINUS',
+    'MULTIPLY',
+    'DIVIDE',
+    'RIGHTPAREN',
+    'LEFTPAREN',
+    'IDENTIFIER',
+    'EQUALS'
     
 )
+registers = {}
 
-# 2. Define Token Patterns, these are the lex rules 
+# 2. Define Token Patterns
+def t_IDENTIFIER(t):
+    r'[a-zA-Z][a-zA-Z0-9]*'
+    return(t)
+
+def t_EQUALS(t):
+    r'='
+    return(t)
+
+def t_LEFTPAREN(t):
+    r'\('
+    return(t)
+
+def t_RIGHTPAREN(t):
+    r'\)'
+    return(t)
+
+def t_MULTIPLY(t):
+    r'\*'
+    return(t)
+
+def t_DIVIDE(t):
+    r'/'
+    return(t)
 def t_NUMBER(t):
     r'[0-9]+'
     t.value = int(t.value)
@@ -54,24 +84,50 @@ import ply.yacc as yacc
 # 2. Define the Grammar Rules
 # 1. Define Precedence (Lowest to Highest)
 
-
+def p_statement_assign(p): #these are the yacc rules 
+    'statement : IDENTIFIER EQUALS expression'
+    p[0] = p[3]
+    registers[p[1]] = p[3]
+    
+def p_statement_expression(p):
+    'statement : expression'
+    p[0] = p[1]
+    
+def p_expression_reg(p):
+    'expression : IDENTIFIER'
+    p[0] = registers[ p[1] ]
+    
 def p_expression_number(p):
     'expression : NUMBER'
     p[0] = p[1]
     
+def p_expression_paren(p):
+    'expression : LEFTPAREN expression RIGHTPAREN'
+    p[0] = p[2]
     
-def p_expression_binop(p): #this is the yacc grammer
+def p_expression_binop(p):
     '''expression : expression PLUS expression
-                  | expression MINUS expression'''
-                  
-    
+                  | expression MINUS expression
+                  | expression MULTIPLY expression
+                  | expression DIVIDE expression'''
+   
     if p[2] == '+': p[0] = p[1] + p[3]
     elif p[2] == '-': p[0] = p[1] - p[3]
+    elif p[2] == '*': p[0] = p[1] * p[3]
+    elif p[2] == '/': p[0] = p[1] / p[3]
+    
+
+    
+
     
 precedence = (
-    ('left', 'PLUS', 'MINUS'), #this fixes the 10-5-2 giving 7 problem, now gives 3
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'MULTIPLY','DIVIDE')
 )
-    
+def p_error(p):
+    if p:
+        print(f"Syntax error at token '{p.value}' (line {p.lineno})")  
+
 # 3. Build the Parser
 parser = yacc.yacc()
 
