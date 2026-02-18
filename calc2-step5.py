@@ -19,7 +19,7 @@ registers = {}
 # Reserved words mapping
 
 reserved = {
-    'dump': 'DUMP'
+    'dump': 'DUMP' #things you can't use as identifiers, like TRY in python, this was it doesn't get confused with the same word
     }
 
 # 2. Define Token Patterns
