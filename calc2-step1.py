@@ -9,7 +9,7 @@ tokens = (
     
 )
 
-# 2. Define Token Patterns
+# 2. Define Token Patterns, these are the lex rules 
 def t_NUMBER(t):
     r'[0-9]+'
     t.value = int(t.value)
