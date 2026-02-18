@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDEDIVIDE EQUALS IDENTIFIER LEFTPAREN MINUS MULTIPLY NUMBER PLUS RIGHTPARENstatement : IDENTIFIER EQUALS expressionstatement : expressionexpression : IDENTIFIERexpression : NUMBERexpression : LEFTPAREN expression RIGHTPARENexpression : expression PLUS expression\n| expression MINUS expression\n| expression MULTIPLY expression\n| expression DIVIDE expression'
+_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDEDIVIDE DUMP EQUALS IDENTIFIER LEFTPAREN MINUS MULTIPLY NUMBER PLUS RIGHTPARENstatement : DUMPstatement : IDENTIFIER EQUALS expressionstatement : expressionexpression : IDENTIFIERexpression : NUMBERexpression : LEFTPAREN expression RIGHTPARENexpression : expression PLUS expression\n| expression MINUS expression\n| expression MULTIPLY expression\n| expression DIVIDE expression'
     
-_lr_action_items = {'IDENTIFIER':([0,5,6,7,8,9,10,],[2,12,12,12,12,12,12,]),'NUMBER':([0,5,6,7,8,9,10,],[4,4,4,4,4,4,4,]),'LEFTPAREN':([0,5,6,7,8,9,10,],[5,5,5,5,5,5,5,]),'$end':([1,2,3,4,12,13,14,15,16,17,18,],[0,-3,-2,-4,-3,-1,-6,-7,-8,-9,-5,]),'EQUALS':([2,],[6,]),'PLUS':([2,3,4,11,12,13,14,15,16,17,18,],[-3,7,-4,7,-3,7,-6,-7,-8,-9,-5,]),'MINUS':([2,3,4,11,12,13,14,15,16,17,18,],[-3,8,-4,8,-3,8,-6,-7,-8,-9,-5,]),'MULTIPLY':([2,3,4,11,12,13,14,15,16,17,18,],[-3,9,-4,9,-3,9,9,9,-8,-9,-5,]),'DIVIDE':([2,3,4,11,12,13,14,15,16,17,18,],[-3,10,-4,10,-3,10,10,10,-8,-9,-5,]),'RIGHTPAREN':([4,11,12,14,15,16,17,18,],[-4,18,-3,-6,-7,-8,-9,-5,]),}
+_lr_action_items = {'DUMP':([0,],[2,]),'IDENTIFIER':([0,6,7,8,9,10,11,],[3,13,13,13,13,13,13,]),'NUMBER':([0,6,7,8,9,10,11,],[5,5,5,5,5,5,5,]),'LEFTPAREN':([0,6,7,8,9,10,11,],[6,6,6,6,6,6,6,]),'$end':([1,2,3,4,5,13,14,15,16,17,18,19,],[0,-1,-4,-3,-5,-4,-2,-7,-8,-9,-10,-6,]),'EQUALS':([3,],[7,]),'PLUS':([3,4,5,12,13,14,15,16,17,18,19,],[-4,8,-5,8,-4,8,-7,-8,-9,-10,-6,]),'MINUS':([3,4,5,12,13,14,15,16,17,18,19,],[-4,9,-5,9,-4,9,-7,-8,-9,-10,-6,]),'MULTIPLY':([3,4,5,12,13,14,15,16,17,18,19,],[-4,10,-5,10,-4,10,10,10,-9,-10,-6,]),'DIVIDE':([3,4,5,12,13,14,15,16,17,18,19,],[-4,11,-5,11,-4,11,11,11,-9,-10,-6,]),'RIGHTPAREN':([5,12,13,15,16,17,18,19,],[-5,19,-4,-7,-8,-9,-10,-6,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,5,6,7,8,9,10,],[3,11,13,14,15,16,17,]),}
+_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,6,7,8,9,10,11,],[4,12,14,15,16,17,18,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,13 +27,14 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> IDENTIFIER EQUALS expression','statement',3,'p_statement_assign','calc2-step4.py',88),
-  ('statement -> expression','statement',1,'p_statement_expression','calc2-step4.py',93),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_reg','calc2-step4.py',97),
-  ('expression -> NUMBER','expression',1,'p_expression_number','calc2-step4.py',101),
-  ('expression -> LEFTPAREN expression RIGHTPAREN','expression',3,'p_expression_paren','calc2-step4.py',105),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','calc2-step4.py',109),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','calc2-step4.py',110),
-  ('expression -> expression MULTIPLY expression','expression',3,'p_expression_binop','calc2-step4.py',111),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','calc2-step4.py',112),
+  ('statement -> DUMP','statement',1,'p_statement_dump','calc2-step5.py',95),
+  ('statement -> IDENTIFIER EQUALS expression','statement',3,'p_statement_assign','calc2-step5.py',105),
+  ('statement -> expression','statement',1,'p_statement_expression','calc2-step5.py',110),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_reg','calc2-step5.py',114),
+  ('expression -> NUMBER','expression',1,'p_expression_number','calc2-step5.py',122),
+  ('expression -> LEFTPAREN expression RIGHTPAREN','expression',3,'p_expression_paren','calc2-step5.py',126),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','calc2-step5.py',130),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','calc2-step5.py',131),
+  ('expression -> expression MULTIPLY expression','expression',3,'p_expression_binop','calc2-step5.py',132),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','calc2-step5.py',133),
 ]
