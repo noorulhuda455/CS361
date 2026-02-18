@@ -68,7 +68,9 @@ def p_expression_binop(p):
     if p[2] == '+': p[0] = p[1] + p[3]
     elif p[2] == '-': p[0] = p[1] - p[3]
     
-
+precedence = (
+    ('left', 'PLUS', 'MINUS'), #this fixes the 10-5-2 giving 7 problem, now gives 3
+)
     
 # 3. Build the Parser
 parser = yacc.yacc()

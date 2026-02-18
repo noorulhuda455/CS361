@@ -78,14 +78,12 @@ state 5
     (2) expression -> expression . PLUS expression
     (3) expression -> expression . MINUS expression
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
+    PLUS            reduce using rule 2 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 2 (expression -> expression PLUS expression .)
     $end            reduce using rule 2 (expression -> expression PLUS expression .)
-    PLUS            shift and go to state 3
-    MINUS           shift and go to state 4
 
-  ! PLUS            [ reduce using rule 2 (expression -> expression PLUS expression .) ]
-  ! MINUS           [ reduce using rule 2 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 3 ]
+  ! MINUS           [ shift and go to state 4 ]
 
 
 state 6
@@ -94,19 +92,10 @@ state 6
     (2) expression -> expression . PLUS expression
     (3) expression -> expression . MINUS expression
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
+    PLUS            reduce using rule 3 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 3 (expression -> expression MINUS expression .)
     $end            reduce using rule 3 (expression -> expression MINUS expression .)
-    PLUS            shift and go to state 3
-    MINUS           shift and go to state 4
 
-  ! PLUS            [ reduce using rule 3 (expression -> expression MINUS expression .) ]
-  ! MINUS           [ reduce using rule 3 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 3 ]
+  ! MINUS           [ shift and go to state 4 ]
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 5 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 5 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 6 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 6 resolved as shift

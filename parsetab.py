@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'MINUS NUMBER PLUSexpression : NUMBERexpression : expression PLUS expression\n| expression MINUS expression'
+_lr_signature = 'leftPLUSMINUSMINUS NUMBER PLUSexpression : NUMBERexpression : expression PLUS expression\n| expression MINUS expression'
     
-_lr_action_items = {'NUMBER':([0,3,4,],[2,2,2,]),'$end':([1,2,5,6,],[0,-1,-2,-3,]),'PLUS':([1,2,5,6,],[3,-1,3,3,]),'MINUS':([1,2,5,6,],[4,-1,4,4,]),}
+_lr_action_items = {'NUMBER':([0,3,4,],[2,2,2,]),'$end':([1,2,5,6,],[0,-1,-2,-3,]),'PLUS':([1,2,5,6,],[3,-1,-2,-3,]),'MINUS':([1,2,5,6,],[4,-1,-2,-3,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
