@@ -51,10 +51,14 @@ def t_MULTIPLY(t):
 def t_DIVIDE(t):
     r'/'
     return(t)
+
 def t_NUMBER(t):
-    r'[0-9]+'
-    t.value = int(t.value)
-    return(t)
+    r'\d+(\.\d+)?'
+    if '.' in t.value:
+        t.value = float(t.value) #update to satify floating point requirement 
+    else:
+        t.value = int(t.value)
+    return t
 
 def t_PLUS(t):
     r'\+'
@@ -109,14 +113,21 @@ def p_statement_clear(p):
     '''statement : CLEAR ALL
                  | CLEAR IDENTIFIER'''
     global registers
-    print (p[2])
-    if p[2] in registers:
-        print (f"clearing {p[2]} ")
-        if registers[ p[2] ]:
-            del registers[ p[2] ]
-    else:
-        print (f"Cleared all registers")
+    
+    # clear all
+    if p[2] == 'all':
         registers = {}
+        print("Cleared all registers")
+    
+    # clear single variable
+    else:
+        if p[2] in registers:
+            del registers[p[2]]
+            print(f"Cleared register '{p[2]}'")
+        else:
+            print(f"Register '{p[2]}' not found")
+    
+    p[0] = None
         
 def p_statement_assign(p):
     'statement : IDENTIFIER EQUALS expression'
