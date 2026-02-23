@@ -4,33 +4,37 @@ Grammar
 
 Rule 0     S' -> statement
 Rule 1     statement -> DUMP
-Rule 2     statement -> IDENTIFIER EQUALS expression
-Rule 3     statement -> expression
-Rule 4     expression -> IDENTIFIER
-Rule 5     expression -> NUMBER
-Rule 6     expression -> LEFTPAREN expression RIGHTPAREN
-Rule 7     expression -> expression PLUS expression
-Rule 8     expression -> expression MINUS expression
-Rule 9     expression -> expression MULTIPLY expression
-Rule 10    expression -> expression DIVIDE expression
+Rule 2     statement -> CLEAR ALL
+Rule 3     statement -> CLEAR IDENTIFIER
+Rule 4     statement -> IDENTIFIER EQUALS expression
+Rule 5     statement -> expression
+Rule 6     expression -> IDENTIFIER
+Rule 7     expression -> NUMBER
+Rule 8     expression -> LEFTPAREN expression RIGHTPAREN
+Rule 9     expression -> expression PLUS expression
+Rule 10    expression -> expression MINUS expression
+Rule 11    expression -> expression MULTIPLY expression
+Rule 12    expression -> expression DIVIDE expression
 
 Terminals, with rules where they appear
 
-DIVIDE               : 10
+ALL                  : 2
+CLEAR                : 2 3
+DIVIDE               : 12
 DUMP                 : 1
-EQUALS               : 2
-IDENTIFIER           : 2 4
-LEFTPAREN            : 6
-MINUS                : 8
-MULTIPLY             : 9
-NUMBER               : 5
-PLUS                 : 7
-RIGHTPAREN           : 6
+EQUALS               : 4
+IDENTIFIER           : 3 4 6
+LEFTPAREN            : 8
+MINUS                : 10
+MULTIPLY             : 11
+NUMBER               : 7
+PLUS                 : 9
+RIGHTPAREN           : 8
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 2 3 6 7 7 8 8 9 9 10 10
+expression           : 4 5 8 9 9 10 10 11 11 12 12
 statement            : 0
 
 Parsing method: LALR
@@ -39,23 +43,26 @@ state 0
 
     (0) S' -> . statement
     (1) statement -> . DUMP
-    (2) statement -> . IDENTIFIER EQUALS expression
-    (3) statement -> . expression
-    (4) expression -> . IDENTIFIER
-    (5) expression -> . NUMBER
-    (6) expression -> . LEFTPAREN expression RIGHTPAREN
-    (7) expression -> . expression PLUS expression
-    (8) expression -> . expression MINUS expression
-    (9) expression -> . expression MULTIPLY expression
-    (10) expression -> . expression DIVIDE expression
+    (2) statement -> . CLEAR ALL
+    (3) statement -> . CLEAR IDENTIFIER
+    (4) statement -> . IDENTIFIER EQUALS expression
+    (5) statement -> . expression
+    (6) expression -> . IDENTIFIER
+    (7) expression -> . NUMBER
+    (8) expression -> . LEFTPAREN expression RIGHTPAREN
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MULTIPLY expression
+    (12) expression -> . expression DIVIDE expression
 
     DUMP            shift and go to state 2
-    IDENTIFIER      shift and go to state 3
-    NUMBER          shift and go to state 5
-    LEFTPAREN       shift and go to state 6
+    CLEAR           shift and go to state 3
+    IDENTIFIER      shift and go to state 4
+    NUMBER          shift and go to state 6
+    LEFTPAREN       shift and go to state 7
 
     statement                      shift and go to state 1
-    expression                     shift and go to state 4
+    expression                     shift and go to state 5
 
 state 1
 
@@ -72,280 +79,303 @@ state 2
 
 state 3
 
-    (2) statement -> IDENTIFIER . EQUALS expression
-    (4) expression -> IDENTIFIER .
+    (2) statement -> CLEAR . ALL
+    (3) statement -> CLEAR . IDENTIFIER
 
-    EQUALS          shift and go to state 7
-    PLUS            reduce using rule 4 (expression -> IDENTIFIER .)
-    MINUS           reduce using rule 4 (expression -> IDENTIFIER .)
-    MULTIPLY        reduce using rule 4 (expression -> IDENTIFIER .)
-    DIVIDE          reduce using rule 4 (expression -> IDENTIFIER .)
-    $end            reduce using rule 4 (expression -> IDENTIFIER .)
+    ALL             shift and go to state 8
+    IDENTIFIER      shift and go to state 9
 
 
 state 4
 
-    (3) statement -> expression .
-    (7) expression -> expression . PLUS expression
-    (8) expression -> expression . MINUS expression
-    (9) expression -> expression . MULTIPLY expression
-    (10) expression -> expression . DIVIDE expression
+    (4) statement -> IDENTIFIER . EQUALS expression
+    (6) expression -> IDENTIFIER .
 
-    $end            reduce using rule 3 (statement -> expression .)
-    PLUS            shift and go to state 8
-    MINUS           shift and go to state 9
-    MULTIPLY        shift and go to state 10
-    DIVIDE          shift and go to state 11
+    EQUALS          shift and go to state 10
+    PLUS            reduce using rule 6 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 6 (expression -> IDENTIFIER .)
+    MULTIPLY        reduce using rule 6 (expression -> IDENTIFIER .)
+    DIVIDE          reduce using rule 6 (expression -> IDENTIFIER .)
+    $end            reduce using rule 6 (expression -> IDENTIFIER .)
 
 
 state 5
 
-    (5) expression -> NUMBER .
+    (5) statement -> expression .
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MULTIPLY expression
+    (12) expression -> expression . DIVIDE expression
 
-    PLUS            reduce using rule 5 (expression -> NUMBER .)
-    MINUS           reduce using rule 5 (expression -> NUMBER .)
-    MULTIPLY        reduce using rule 5 (expression -> NUMBER .)
-    DIVIDE          reduce using rule 5 (expression -> NUMBER .)
-    $end            reduce using rule 5 (expression -> NUMBER .)
-    RIGHTPAREN      reduce using rule 5 (expression -> NUMBER .)
+    $end            reduce using rule 5 (statement -> expression .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    MULTIPLY        shift and go to state 13
+    DIVIDE          shift and go to state 14
 
 
 state 6
 
-    (6) expression -> LEFTPAREN . expression RIGHTPAREN
-    (4) expression -> . IDENTIFIER
-    (5) expression -> . NUMBER
-    (6) expression -> . LEFTPAREN expression RIGHTPAREN
-    (7) expression -> . expression PLUS expression
-    (8) expression -> . expression MINUS expression
-    (9) expression -> . expression MULTIPLY expression
-    (10) expression -> . expression DIVIDE expression
+    (7) expression -> NUMBER .
 
-    IDENTIFIER      shift and go to state 13
-    NUMBER          shift and go to state 5
-    LEFTPAREN       shift and go to state 6
+    PLUS            reduce using rule 7 (expression -> NUMBER .)
+    MINUS           reduce using rule 7 (expression -> NUMBER .)
+    MULTIPLY        reduce using rule 7 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 7 (expression -> NUMBER .)
+    $end            reduce using rule 7 (expression -> NUMBER .)
+    RIGHTPAREN      reduce using rule 7 (expression -> NUMBER .)
 
-    expression                     shift and go to state 12
 
 state 7
 
-    (2) statement -> IDENTIFIER EQUALS . expression
-    (4) expression -> . IDENTIFIER
-    (5) expression -> . NUMBER
-    (6) expression -> . LEFTPAREN expression RIGHTPAREN
-    (7) expression -> . expression PLUS expression
-    (8) expression -> . expression MINUS expression
-    (9) expression -> . expression MULTIPLY expression
-    (10) expression -> . expression DIVIDE expression
+    (8) expression -> LEFTPAREN . expression RIGHTPAREN
+    (6) expression -> . IDENTIFIER
+    (7) expression -> . NUMBER
+    (8) expression -> . LEFTPAREN expression RIGHTPAREN
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MULTIPLY expression
+    (12) expression -> . expression DIVIDE expression
 
-    IDENTIFIER      shift and go to state 13
-    NUMBER          shift and go to state 5
-    LEFTPAREN       shift and go to state 6
-
-    expression                     shift and go to state 14
-
-state 8
-
-    (7) expression -> expression PLUS . expression
-    (4) expression -> . IDENTIFIER
-    (5) expression -> . NUMBER
-    (6) expression -> . LEFTPAREN expression RIGHTPAREN
-    (7) expression -> . expression PLUS expression
-    (8) expression -> . expression MINUS expression
-    (9) expression -> . expression MULTIPLY expression
-    (10) expression -> . expression DIVIDE expression
-
-    IDENTIFIER      shift and go to state 13
-    NUMBER          shift and go to state 5
-    LEFTPAREN       shift and go to state 6
+    IDENTIFIER      shift and go to state 16
+    NUMBER          shift and go to state 6
+    LEFTPAREN       shift and go to state 7
 
     expression                     shift and go to state 15
 
+state 8
+
+    (2) statement -> CLEAR ALL .
+
+    $end            reduce using rule 2 (statement -> CLEAR ALL .)
+
+
 state 9
 
-    (8) expression -> expression MINUS . expression
-    (4) expression -> . IDENTIFIER
-    (5) expression -> . NUMBER
-    (6) expression -> . LEFTPAREN expression RIGHTPAREN
-    (7) expression -> . expression PLUS expression
-    (8) expression -> . expression MINUS expression
-    (9) expression -> . expression MULTIPLY expression
-    (10) expression -> . expression DIVIDE expression
+    (3) statement -> CLEAR IDENTIFIER .
 
-    IDENTIFIER      shift and go to state 13
-    NUMBER          shift and go to state 5
-    LEFTPAREN       shift and go to state 6
+    $end            reduce using rule 3 (statement -> CLEAR IDENTIFIER .)
 
-    expression                     shift and go to state 16
 
 state 10
 
-    (9) expression -> expression MULTIPLY . expression
-    (4) expression -> . IDENTIFIER
-    (5) expression -> . NUMBER
-    (6) expression -> . LEFTPAREN expression RIGHTPAREN
-    (7) expression -> . expression PLUS expression
-    (8) expression -> . expression MINUS expression
-    (9) expression -> . expression MULTIPLY expression
-    (10) expression -> . expression DIVIDE expression
+    (4) statement -> IDENTIFIER EQUALS . expression
+    (6) expression -> . IDENTIFIER
+    (7) expression -> . NUMBER
+    (8) expression -> . LEFTPAREN expression RIGHTPAREN
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MULTIPLY expression
+    (12) expression -> . expression DIVIDE expression
 
-    IDENTIFIER      shift and go to state 13
-    NUMBER          shift and go to state 5
-    LEFTPAREN       shift and go to state 6
+    IDENTIFIER      shift and go to state 16
+    NUMBER          shift and go to state 6
+    LEFTPAREN       shift and go to state 7
 
     expression                     shift and go to state 17
 
 state 11
 
-    (10) expression -> expression DIVIDE . expression
-    (4) expression -> . IDENTIFIER
-    (5) expression -> . NUMBER
-    (6) expression -> . LEFTPAREN expression RIGHTPAREN
-    (7) expression -> . expression PLUS expression
-    (8) expression -> . expression MINUS expression
-    (9) expression -> . expression MULTIPLY expression
-    (10) expression -> . expression DIVIDE expression
+    (9) expression -> expression PLUS . expression
+    (6) expression -> . IDENTIFIER
+    (7) expression -> . NUMBER
+    (8) expression -> . LEFTPAREN expression RIGHTPAREN
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MULTIPLY expression
+    (12) expression -> . expression DIVIDE expression
 
-    IDENTIFIER      shift and go to state 13
-    NUMBER          shift and go to state 5
-    LEFTPAREN       shift and go to state 6
+    IDENTIFIER      shift and go to state 16
+    NUMBER          shift and go to state 6
+    LEFTPAREN       shift and go to state 7
 
     expression                     shift and go to state 18
 
 state 12
 
-    (6) expression -> LEFTPAREN expression . RIGHTPAREN
-    (7) expression -> expression . PLUS expression
-    (8) expression -> expression . MINUS expression
-    (9) expression -> expression . MULTIPLY expression
-    (10) expression -> expression . DIVIDE expression
+    (10) expression -> expression MINUS . expression
+    (6) expression -> . IDENTIFIER
+    (7) expression -> . NUMBER
+    (8) expression -> . LEFTPAREN expression RIGHTPAREN
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MULTIPLY expression
+    (12) expression -> . expression DIVIDE expression
 
-    RIGHTPAREN      shift and go to state 19
-    PLUS            shift and go to state 8
-    MINUS           shift and go to state 9
-    MULTIPLY        shift and go to state 10
-    DIVIDE          shift and go to state 11
+    IDENTIFIER      shift and go to state 16
+    NUMBER          shift and go to state 6
+    LEFTPAREN       shift and go to state 7
 
+    expression                     shift and go to state 19
 
 state 13
 
-    (4) expression -> IDENTIFIER .
+    (11) expression -> expression MULTIPLY . expression
+    (6) expression -> . IDENTIFIER
+    (7) expression -> . NUMBER
+    (8) expression -> . LEFTPAREN expression RIGHTPAREN
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MULTIPLY expression
+    (12) expression -> . expression DIVIDE expression
 
-    RIGHTPAREN      reduce using rule 4 (expression -> IDENTIFIER .)
-    PLUS            reduce using rule 4 (expression -> IDENTIFIER .)
-    MINUS           reduce using rule 4 (expression -> IDENTIFIER .)
-    MULTIPLY        reduce using rule 4 (expression -> IDENTIFIER .)
-    DIVIDE          reduce using rule 4 (expression -> IDENTIFIER .)
-    $end            reduce using rule 4 (expression -> IDENTIFIER .)
+    IDENTIFIER      shift and go to state 16
+    NUMBER          shift and go to state 6
+    LEFTPAREN       shift and go to state 7
 
+    expression                     shift and go to state 20
 
 state 14
 
-    (2) statement -> IDENTIFIER EQUALS expression .
-    (7) expression -> expression . PLUS expression
-    (8) expression -> expression . MINUS expression
-    (9) expression -> expression . MULTIPLY expression
-    (10) expression -> expression . DIVIDE expression
+    (12) expression -> expression DIVIDE . expression
+    (6) expression -> . IDENTIFIER
+    (7) expression -> . NUMBER
+    (8) expression -> . LEFTPAREN expression RIGHTPAREN
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MULTIPLY expression
+    (12) expression -> . expression DIVIDE expression
 
-    $end            reduce using rule 2 (statement -> IDENTIFIER EQUALS expression .)
-    PLUS            shift and go to state 8
-    MINUS           shift and go to state 9
-    MULTIPLY        shift and go to state 10
-    DIVIDE          shift and go to state 11
+    IDENTIFIER      shift and go to state 16
+    NUMBER          shift and go to state 6
+    LEFTPAREN       shift and go to state 7
 
+    expression                     shift and go to state 21
 
 state 15
 
-    (7) expression -> expression PLUS expression .
-    (7) expression -> expression . PLUS expression
-    (8) expression -> expression . MINUS expression
-    (9) expression -> expression . MULTIPLY expression
-    (10) expression -> expression . DIVIDE expression
+    (8) expression -> LEFTPAREN expression . RIGHTPAREN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MULTIPLY expression
+    (12) expression -> expression . DIVIDE expression
 
-    PLUS            reduce using rule 7 (expression -> expression PLUS expression .)
-    MINUS           reduce using rule 7 (expression -> expression PLUS expression .)
-    $end            reduce using rule 7 (expression -> expression PLUS expression .)
-    RIGHTPAREN      reduce using rule 7 (expression -> expression PLUS expression .)
-    MULTIPLY        shift and go to state 10
-    DIVIDE          shift and go to state 11
-
-  ! MULTIPLY        [ reduce using rule 7 (expression -> expression PLUS expression .) ]
-  ! DIVIDE          [ reduce using rule 7 (expression -> expression PLUS expression .) ]
-  ! PLUS            [ shift and go to state 8 ]
-  ! MINUS           [ shift and go to state 9 ]
+    RIGHTPAREN      shift and go to state 22
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    MULTIPLY        shift and go to state 13
+    DIVIDE          shift and go to state 14
 
 
 state 16
 
-    (8) expression -> expression MINUS expression .
-    (7) expression -> expression . PLUS expression
-    (8) expression -> expression . MINUS expression
-    (9) expression -> expression . MULTIPLY expression
-    (10) expression -> expression . DIVIDE expression
+    (6) expression -> IDENTIFIER .
 
-    PLUS            reduce using rule 8 (expression -> expression MINUS expression .)
-    MINUS           reduce using rule 8 (expression -> expression MINUS expression .)
-    $end            reduce using rule 8 (expression -> expression MINUS expression .)
-    RIGHTPAREN      reduce using rule 8 (expression -> expression MINUS expression .)
-    MULTIPLY        shift and go to state 10
-    DIVIDE          shift and go to state 11
-
-  ! MULTIPLY        [ reduce using rule 8 (expression -> expression MINUS expression .) ]
-  ! DIVIDE          [ reduce using rule 8 (expression -> expression MINUS expression .) ]
-  ! PLUS            [ shift and go to state 8 ]
-  ! MINUS           [ shift and go to state 9 ]
+    RIGHTPAREN      reduce using rule 6 (expression -> IDENTIFIER .)
+    PLUS            reduce using rule 6 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 6 (expression -> IDENTIFIER .)
+    MULTIPLY        reduce using rule 6 (expression -> IDENTIFIER .)
+    DIVIDE          reduce using rule 6 (expression -> IDENTIFIER .)
+    $end            reduce using rule 6 (expression -> IDENTIFIER .)
 
 
 state 17
 
-    (9) expression -> expression MULTIPLY expression .
-    (7) expression -> expression . PLUS expression
-    (8) expression -> expression . MINUS expression
-    (9) expression -> expression . MULTIPLY expression
-    (10) expression -> expression . DIVIDE expression
+    (4) statement -> IDENTIFIER EQUALS expression .
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MULTIPLY expression
+    (12) expression -> expression . DIVIDE expression
 
-    PLUS            reduce using rule 9 (expression -> expression MULTIPLY expression .)
-    MINUS           reduce using rule 9 (expression -> expression MULTIPLY expression .)
-    MULTIPLY        reduce using rule 9 (expression -> expression MULTIPLY expression .)
-    DIVIDE          reduce using rule 9 (expression -> expression MULTIPLY expression .)
-    $end            reduce using rule 9 (expression -> expression MULTIPLY expression .)
-    RIGHTPAREN      reduce using rule 9 (expression -> expression MULTIPLY expression .)
-
-  ! PLUS            [ shift and go to state 8 ]
-  ! MINUS           [ shift and go to state 9 ]
-  ! MULTIPLY        [ shift and go to state 10 ]
-  ! DIVIDE          [ shift and go to state 11 ]
+    $end            reduce using rule 4 (statement -> IDENTIFIER EQUALS expression .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    MULTIPLY        shift and go to state 13
+    DIVIDE          shift and go to state 14
 
 
 state 18
 
-    (10) expression -> expression DIVIDE expression .
-    (7) expression -> expression . PLUS expression
-    (8) expression -> expression . MINUS expression
-    (9) expression -> expression . MULTIPLY expression
-    (10) expression -> expression . DIVIDE expression
+    (9) expression -> expression PLUS expression .
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MULTIPLY expression
+    (12) expression -> expression . DIVIDE expression
 
-    PLUS            reduce using rule 10 (expression -> expression DIVIDE expression .)
-    MINUS           reduce using rule 10 (expression -> expression DIVIDE expression .)
-    MULTIPLY        reduce using rule 10 (expression -> expression DIVIDE expression .)
-    DIVIDE          reduce using rule 10 (expression -> expression DIVIDE expression .)
-    $end            reduce using rule 10 (expression -> expression DIVIDE expression .)
-    RIGHTPAREN      reduce using rule 10 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 9 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 9 (expression -> expression PLUS expression .)
+    $end            reduce using rule 9 (expression -> expression PLUS expression .)
+    RIGHTPAREN      reduce using rule 9 (expression -> expression PLUS expression .)
+    MULTIPLY        shift and go to state 13
+    DIVIDE          shift and go to state 14
 
-  ! PLUS            [ shift and go to state 8 ]
-  ! MINUS           [ shift and go to state 9 ]
-  ! MULTIPLY        [ shift and go to state 10 ]
-  ! DIVIDE          [ shift and go to state 11 ]
+  ! MULTIPLY        [ reduce using rule 9 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 9 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
 
 
 state 19
 
-    (6) expression -> LEFTPAREN expression RIGHTPAREN .
+    (10) expression -> expression MINUS expression .
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MULTIPLY expression
+    (12) expression -> expression . DIVIDE expression
 
-    PLUS            reduce using rule 6 (expression -> LEFTPAREN expression RIGHTPAREN .)
-    MINUS           reduce using rule 6 (expression -> LEFTPAREN expression RIGHTPAREN .)
-    MULTIPLY        reduce using rule 6 (expression -> LEFTPAREN expression RIGHTPAREN .)
-    DIVIDE          reduce using rule 6 (expression -> LEFTPAREN expression RIGHTPAREN .)
-    $end            reduce using rule 6 (expression -> LEFTPAREN expression RIGHTPAREN .)
-    RIGHTPAREN      reduce using rule 6 (expression -> LEFTPAREN expression RIGHTPAREN .)
+    PLUS            reduce using rule 10 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 10 (expression -> expression MINUS expression .)
+    $end            reduce using rule 10 (expression -> expression MINUS expression .)
+    RIGHTPAREN      reduce using rule 10 (expression -> expression MINUS expression .)
+    MULTIPLY        shift and go to state 13
+    DIVIDE          shift and go to state 14
+
+  ! MULTIPLY        [ reduce using rule 10 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 10 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+
+
+state 20
+
+    (11) expression -> expression MULTIPLY expression .
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MULTIPLY expression
+    (12) expression -> expression . DIVIDE expression
+
+    PLUS            reduce using rule 11 (expression -> expression MULTIPLY expression .)
+    MINUS           reduce using rule 11 (expression -> expression MULTIPLY expression .)
+    MULTIPLY        reduce using rule 11 (expression -> expression MULTIPLY expression .)
+    DIVIDE          reduce using rule 11 (expression -> expression MULTIPLY expression .)
+    $end            reduce using rule 11 (expression -> expression MULTIPLY expression .)
+    RIGHTPAREN      reduce using rule 11 (expression -> expression MULTIPLY expression .)
+
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! MULTIPLY        [ shift and go to state 13 ]
+  ! DIVIDE          [ shift and go to state 14 ]
+
+
+state 21
+
+    (12) expression -> expression DIVIDE expression .
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MULTIPLY expression
+    (12) expression -> expression . DIVIDE expression
+
+    PLUS            reduce using rule 12 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 12 (expression -> expression DIVIDE expression .)
+    MULTIPLY        reduce using rule 12 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 12 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 12 (expression -> expression DIVIDE expression .)
+    RIGHTPAREN      reduce using rule 12 (expression -> expression DIVIDE expression .)
+
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! MULTIPLY        [ shift and go to state 13 ]
+  ! DIVIDE          [ shift and go to state 14 ]
+
+
+state 22
+
+    (8) expression -> LEFTPAREN expression RIGHTPAREN .
+
+    PLUS            reduce using rule 8 (expression -> LEFTPAREN expression RIGHTPAREN .)
+    MINUS           reduce using rule 8 (expression -> LEFTPAREN expression RIGHTPAREN .)
+    MULTIPLY        reduce using rule 8 (expression -> LEFTPAREN expression RIGHTPAREN .)
+    DIVIDE          reduce using rule 8 (expression -> LEFTPAREN expression RIGHTPAREN .)
+    $end            reduce using rule 8 (expression -> LEFTPAREN expression RIGHTPAREN .)
+    RIGHTPAREN      reduce using rule 8 (expression -> LEFTPAREN expression RIGHTPAREN .)
 

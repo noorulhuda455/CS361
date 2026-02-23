@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDEDIVIDE DUMP EQUALS IDENTIFIER LEFTPAREN MINUS MULTIPLY NUMBER PLUS RIGHTPARENstatement : DUMPstatement : IDENTIFIER EQUALS expressionstatement : expressionexpression : IDENTIFIERexpression : NUMBERexpression : LEFTPAREN expression RIGHTPARENexpression : expression PLUS expression\n| expression MINUS expression\n| expression MULTIPLY expression\n| expression DIVIDE expression'
+_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDEALL CLEAR DIVIDE DUMP EQUALS IDENTIFIER LEFTPAREN MINUS MULTIPLY NUMBER PLUS RIGHTPARENstatement : DUMPstatement : CLEAR ALL\n| CLEAR IDENTIFIERstatement : IDENTIFIER EQUALS expressionstatement : expressionexpression : IDENTIFIERexpression : NUMBERexpression : LEFTPAREN expression RIGHTPARENexpression : expression PLUS expression\n| expression MINUS expression\n| expression MULTIPLY expression\n| expression DIVIDE expression'
     
-_lr_action_items = {'DUMP':([0,],[2,]),'IDENTIFIER':([0,6,7,8,9,10,11,],[3,13,13,13,13,13,13,]),'NUMBER':([0,6,7,8,9,10,11,],[5,5,5,5,5,5,5,]),'LEFTPAREN':([0,6,7,8,9,10,11,],[6,6,6,6,6,6,6,]),'$end':([1,2,3,4,5,13,14,15,16,17,18,19,],[0,-1,-4,-3,-5,-4,-2,-7,-8,-9,-10,-6,]),'EQUALS':([3,],[7,]),'PLUS':([3,4,5,12,13,14,15,16,17,18,19,],[-4,8,-5,8,-4,8,-7,-8,-9,-10,-6,]),'MINUS':([3,4,5,12,13,14,15,16,17,18,19,],[-4,9,-5,9,-4,9,-7,-8,-9,-10,-6,]),'MULTIPLY':([3,4,5,12,13,14,15,16,17,18,19,],[-4,10,-5,10,-4,10,10,10,-9,-10,-6,]),'DIVIDE':([3,4,5,12,13,14,15,16,17,18,19,],[-4,11,-5,11,-4,11,11,11,-9,-10,-6,]),'RIGHTPAREN':([5,12,13,15,16,17,18,19,],[-5,19,-4,-7,-8,-9,-10,-6,]),}
+_lr_action_items = {'DUMP':([0,],[2,]),'CLEAR':([0,],[3,]),'IDENTIFIER':([0,3,7,10,11,12,13,14,],[4,9,16,16,16,16,16,16,]),'NUMBER':([0,7,10,11,12,13,14,],[6,6,6,6,6,6,6,]),'LEFTPAREN':([0,7,10,11,12,13,14,],[7,7,7,7,7,7,7,]),'$end':([1,2,4,5,6,8,9,16,17,18,19,20,21,22,],[0,-1,-6,-5,-7,-2,-3,-6,-4,-9,-10,-11,-12,-8,]),'ALL':([3,],[8,]),'EQUALS':([4,],[10,]),'PLUS':([4,5,6,15,16,17,18,19,20,21,22,],[-6,11,-7,11,-6,11,-9,-10,-11,-12,-8,]),'MINUS':([4,5,6,15,16,17,18,19,20,21,22,],[-6,12,-7,12,-6,12,-9,-10,-11,-12,-8,]),'MULTIPLY':([4,5,6,15,16,17,18,19,20,21,22,],[-6,13,-7,13,-6,13,13,13,-11,-12,-8,]),'DIVIDE':([4,5,6,15,16,17,18,19,20,21,22,],[-6,14,-7,14,-6,14,14,14,-11,-12,-8,]),'RIGHTPAREN':([6,15,16,18,19,20,21,22,],[-7,22,-6,-9,-10,-11,-12,-8,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,6,7,8,9,10,11,],[4,12,14,15,16,17,18,]),}
+_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,7,10,11,12,13,14,],[5,15,17,18,19,20,21,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,14 +27,16 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> DUMP','statement',1,'p_statement_dump','calc2-step5.py',95),
-  ('statement -> IDENTIFIER EQUALS expression','statement',3,'p_statement_assign','calc2-step5.py',105),
-  ('statement -> expression','statement',1,'p_statement_expression','calc2-step5.py',110),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_reg','calc2-step5.py',114),
-  ('expression -> NUMBER','expression',1,'p_expression_number','calc2-step5.py',122),
-  ('expression -> LEFTPAREN expression RIGHTPAREN','expression',3,'p_expression_paren','calc2-step5.py',126),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','calc2-step5.py',130),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','calc2-step5.py',131),
-  ('expression -> expression MULTIPLY expression','expression',3,'p_expression_binop','calc2-step5.py',132),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','calc2-step5.py',133),
+  ('statement -> DUMP','statement',1,'p_statement_dump','calc2-step61.py',99),
+  ('statement -> CLEAR ALL','statement',2,'p_statement_clear','calc2-step61.py',109),
+  ('statement -> CLEAR IDENTIFIER','statement',2,'p_statement_clear','calc2-step61.py',110),
+  ('statement -> IDENTIFIER EQUALS expression','statement',3,'p_statement_assign','calc2-step61.py',122),
+  ('statement -> expression','statement',1,'p_statement_expression','calc2-step61.py',127),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_reg','calc2-step61.py',131),
+  ('expression -> NUMBER','expression',1,'p_expression_number','calc2-step61.py',139),
+  ('expression -> LEFTPAREN expression RIGHTPAREN','expression',3,'p_expression_paren','calc2-step61.py',143),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','calc2-step61.py',147),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','calc2-step61.py',148),
+  ('expression -> expression MULTIPLY expression','expression',3,'p_expression_binop','calc2-step61.py',149),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','calc2-step61.py',150),
 ]
